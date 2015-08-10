@@ -8,7 +8,23 @@
 
 (function(){
 
-	  var app = angular.module("loginApp", []);
+	  var app = angular.module("loginApp", ['ngRoute']);
+	  
+	  app.config(['$routeProvider', function($routeProvider) {
+            $routeProvider.
+              when('/login', {
+                templateUrl: '/LoginApp/fragments/login.html',
+                controller: 'LoginCtrl'
+              }).
+              when('/notes', {
+                  templateUrl: '/LoginApp/fragments/notes.html',
+                  controller: 'NotesCtrl'
+                }).
+              otherwise({
+                redirectTo: '/login'
+              });
+          }]);
+	  
 	  
 	  /*
 	   * Main controller responsible for Login.
@@ -20,12 +36,29 @@
 		    
 		    $scope.login = function(){
 		    	LoginService.login($scope.username, $scope.password).then(function(msg){
-		    		$scope.status = msg;
-			    	// $location.path('/');
+				    $scope.password = '';
+			    	$location.path('/notes');
 		    	}, function(msg){
 		    		$scope.status = msg;
 		    	});
 		    };
+	  });
+	  
+	  /*
+	   * Controller responsible for retrieving Notes.
+	   */
+	  app.controller('NotesCtrl', function($scope, $http, LoginService) {
+		  $scope.greeting = 'Greeting from notes';
+		  $scope.notes = [];
+		  
+		  var token = 'Bearer ' + LoginService.getToken();
+		  		  
+		  $http.get('/LoginApp/api/notes', {
+			  headers : { 'Authorization': token }
+		  }).then(function(response){
+			  $scope.notes = response.data;
+		  });
+		  
 	  });
 	  
 	  /*
@@ -49,8 +82,8 @@
 			  $http.post('/LoginApp/api/login', data).then(function(response){
 				  // 200 - OK
 				  console.log('Login Sucessful');
-				  accessToken = response.access_token;
-				  refreshToken = response.refresh_token;
+				  accessToken = response.data.access_token;
+				  refreshToken = response.data.refresh_token;
 				  deferred.resolve('Login Successful');
 				  
 			  }, function (response){
@@ -64,8 +97,11 @@
 		  };
 		  
 		  service.getToken = function(){
-			console.log('fetching Access Token');
 			return accessToken;   
+		  };
+		  
+		  service.getHeaders = function(){
+			return { 'Authorization': 'Bearer' + accessToken }  
 		  };
 		  
 		  service.clearToken = function(){

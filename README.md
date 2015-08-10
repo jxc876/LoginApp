@@ -4,27 +4,15 @@ Sample Angular application that allows Users to Register / Login / Log Out.
 
 # Running the Application
 
-* Browse to `http://localhost:8080/LoginApp`
+Clone the Repo then run the application:
 
-The REST BackEnd is exposed at : `/api/notes`
+`grails run-app`
 
-```
-GET http://localhost:8080/LoginApp/api/notes 
-[
-  {
-    "class": "com.jxc876.Note",
-    "id": 1,
-    "date": "2015-08-10T00:58:04Z",
-    "text": "Hello this is my note"
-  },
-  {
-    "class": "com.jxc876.Note",
-    "id": 2,
-    "date": "2015-08-10T00:58:04Z",
-    "text": "This is another note"
-  }
-]
-```
+OR
+
+`grails-run-app -https`
+
+Then browse to `http://localhost:8080/LoginApp`
 
 
 # Design Decisions
@@ -52,9 +40,56 @@ GET http://localhost:8080/LoginApp/api/notes
 
 * Backend Service is secured via [Spring Security REST Plugin](https://grails.org/plugin/spring-security-rest)
 * Stateless, token-based authentication RESTful Authentication
-* Uses `X-Auth-Token` header
 
 ![REST Workflow](http://alvarosanchez.github.io/grails-spring-security-rest/1.5.1/docs/img/rest.png)
+
+
+* Obtain an access token by posting to /api/login
+
+```
+POST http://localhost:8080/LoginApp/api/login
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+----
+200 OK
+{
+    "username": "admin",
+    "roles": [
+        "ROLE_ADMIN"
+    ],
+    "token_type": "Bearer",
+    "access_token": "eyJhbGciOiJIUzI1NiJ9...",
+    "expires_in": 3600,
+    "refresh_token": "eyJhbGciOiJIUzI1NiJ9..."
+}
+
+```
+
+## REST Service
+ 
+The REST BackEnd is exposed at : `/api/notes`
+
+```
+GET http://localhost:8080/LoginApp/api/notes 
+Authorization : Bearer eyJhbGciOi...
+[
+  {
+    "class": "com.jxc876.Note",
+    "id": 1,
+    "date": "2015-08-10T00:58:04Z",
+    "text": "Hello this is my note"
+  },
+  {
+    "class": "com.jxc876.Note",
+    "id": 2,
+    "date": "2015-08-10T00:58:04Z",
+    "text": "This is another note"
+  }
+]
+```
 
 
 ## Notes

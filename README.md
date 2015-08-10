@@ -57,3 +57,8 @@ GET http://localhost:8080/LoginApp/api/notes
 ![REST Workflow](http://alvarosanchez.github.io/grails-spring-security-rest/1.5.1/docs/img/rest.png)
 
 
+## Notes
+
+* `grails url-mappings-report`
+* http://mrhaki.blogspot.com/2013/11/grails-goodness-create-report-of-url.html 
+

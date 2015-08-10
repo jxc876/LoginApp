@@ -7,7 +7,6 @@ import grails.rest.Resource
  * Exposed at: <pre>http://localhost:8080/LoginApp/api/notes</pre>
  * @author mike
  */
-@Resource(uri='/api/notes', formats=['json', 'xml'])
 class Note {
 
 	String text

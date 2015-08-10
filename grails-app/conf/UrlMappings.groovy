@@ -6,6 +6,8 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+		
+		"/api/notes"(resources: 'note')
 
         "/"(view:"/index")
         "500"(view:'/error')

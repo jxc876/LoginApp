@@ -47,7 +47,7 @@
 				    $scope.password = '';
 			    	$location.path('/notes');
 		    	}, function(msg){
-		    		$scope.status = msg;
+		    		$scope.status = 'Login Failed, Please try again.';
 		    	});
 		    };
 	  });
@@ -69,6 +69,20 @@
 		  
 	  });
 
+	  /*
+	   * Watch for route changes, redirect to login page if user is not authenticated.
+	   */
+	  app.controller('MainCtrl', function($scope, $location, LoginService) {
+		  $scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){  
+			  var loggedIn = LoginService.getToken();
+			    if (!loggedIn && newValue != '/login' && newValue != '/register'){  
+			    	console.log('User is not logged in, redirecting to Login Page');
+			        $location.path('/login');  
+			    }  
+			});
+	  });	  
+	  
+	  
 	  app.controller('LogoutCtrl', function($scope, $http) {
 		  
 	  });

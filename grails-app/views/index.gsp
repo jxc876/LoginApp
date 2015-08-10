@@ -23,7 +23,7 @@
 <body>
 
 
-    <div class="container" data-ng-app="loginApp">
+    <div class="container" data-ng-app="loginApp" ng-controller="MainCtrl">
 		<div ng-view></div>
     </div> <!-- /container -->
 

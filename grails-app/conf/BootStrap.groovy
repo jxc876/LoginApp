@@ -8,8 +8,9 @@ class BootStrap {
 		Role role = new Role(authority:"ROLE_ADMIN").save()
 		UserRole uRole = new UserRole(user: user, role: role).save()
 		
-		new Note(text:'Hello this is my note').save();
-		new Note(text:'This is another note').save();
+		new Note(text:'This note was fetched from the REST API at /api/notes').save();
+		new Note(text:'Notes require authentication to view').save();
+		
     }
     def destroy = {
     }

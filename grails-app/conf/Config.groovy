@@ -118,7 +118,7 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 		   
-	info 'grails.plugin.springsecurity.web.filter.DebugFilter'
+	off 'grails.plugin.springsecurity.web.filter.DebugFilter'
 }
 
 grails.plugin.springsecurity.filterChain.chainMap = [

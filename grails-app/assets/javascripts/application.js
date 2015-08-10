@@ -16,6 +16,14 @@
                 templateUrl: '/LoginApp/fragments/login.html',
                 controller: 'LoginCtrl'
               }).
+              when('/logout', {
+                  templateUrl: '/LoginApp/fragments/logout.html',
+                  controller: 'LogoutCtrl'
+                }).
+              when('/register', {
+                    templateUrl: '/LoginApp/fragments/register.html',
+                    controller: 'RegisterCtrl'
+                  }).
               when('/notes', {
                   templateUrl: '/LoginApp/fragments/notes.html',
                   controller: 'NotesCtrl'
@@ -58,6 +66,14 @@
 		  }).then(function(response){
 			  $scope.notes = response.data;
 		  });
+		  
+	  });
+
+	  app.controller('LogoutCtrl', function($scope, $http) {
+		  
+	  });
+	  
+	  app.controller('RegisterCtrl', function($scope, $http) {
 		  
 	  });
 	  

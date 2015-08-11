@@ -29,7 +29,8 @@ class UserController {
 		
 		def username = jsonObj.username
 		if (User.findByUsername(username)){
-			jsonReponse.status = "username is already taken"
+			jsonReponse.message = "username is already taken"
+			response.status = 400;
 			render jsonReponse as JSON	
 		}
 		
@@ -43,10 +44,13 @@ class UserController {
 		boolean uRoleSaved = uRole.save(flush: true, insert: true)
 				
 		if (userSaved && uRoleSaved){
-			jsonReponse.status = "success"
-			println "activationLink -> ${user.activationCode}"
+			jsonReponse.message = "success"
+			jsonReponse.code = user.activationCode
+			jsonReponse.link = "/api/activations/${user.activationCode}"
+			println "activationLink --> /api/activations/${user.activationCode}"
 		}else{
-			jsonReponse.status = "failure"
+			response.status = 400
+			jsonReponse.message = "server error occured while creating account"
 		}
 		render jsonReponse as JSON
 	}

@@ -9,7 +9,7 @@ class UrlMappings {
 		
 		"/api/notes"(resources: 'note', includes:['index'])
 		"/api/users"(resources: 'user')
-		
+		"/api/activations/$activationCode"(controller: "activation", action:"activate")
 		
         "/"(view:"/index")
         "500"(view:'/error')

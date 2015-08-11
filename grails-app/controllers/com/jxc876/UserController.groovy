@@ -34,7 +34,8 @@ class UserController {
 		}
 		
 		User user = new User(jsonObj)
-		user.enabled = true
+		user.enabled = false 
+		user.activationCode = randomString()
 		Role role = Role.findByAuthority('ROLE_USER')	
 		UserRole uRole = new UserRole(user: user, role: role)
 		
@@ -43,6 +44,7 @@ class UserController {
 				
 		if (userSaved && uRoleSaved){
 			jsonReponse.status = "success"
+			println "activationLink -> ${user.activationCode}"
 		}else{
 			jsonReponse.status = "failure"
 		}
@@ -50,9 +52,10 @@ class UserController {
 	}
 	
 	private String randomString(){
-		int randomStringLength = 32
-		String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-		String randomString = RandomStringUtils.random(randomStringLength, charset.toCharArray())
+		def pool = ['a'..'z','A'..'Z',0..9,'_'].flatten()
+		Random rand = new Random(System.currentTimeMillis())
+		def passChars = (0..10).collect { pool[rand.nextInt(pool.size())] }
+		def randomString = passChars.join()
 		return randomString
 	}
 }

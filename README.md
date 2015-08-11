@@ -65,6 +65,16 @@ Obtain an access token by posting to `/api/login`
         "refresh_token": "eyJhbGciOiJIUzI1NiJ9..."
     }
 
+I use the `LoginService` factory to gain a Token, and then store it in LocalStorage.  
+Logging out simply clears the Token from LocalStorage since a truly RESTful system 
+would should not store session state.
+
+Account Registration is done by POSTing to `/LoginApp/api/users`.
+After a new Account is created it is disabled and must be activated by visiting a link.
+(I decided to print the link on the console rather than email it to avoid configuring an SMTP mail server). 
+
+The activation link has the following format : `/LoginApp/api/activations/{{activationCode}}`
+
 
 ## REST Service
  

@@ -80,10 +80,17 @@
 	  
 	  app.controller('RegisterCtrl', function($scope, $http, $location) {
 		  $scope.username = '';
+		  $scope.email = '';
 		  $scope.password = '';
 		  $scope.message = '';
 		  
 		  $scope.register = function(){
+			  
+			  if (!$scope.registerForm.$valid){
+				  console.log('form is not valid');
+				  return;
+			  }
+			  
 			  var data = {username : $scope.username, password: $scope.password}
 
 			  $http.post('/LoginApp/api/users', data).then(function(response){

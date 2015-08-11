@@ -38,8 +38,9 @@ Then browse to `http://localhost:8080/LoginApp`
 
 ## Authentication Mechanism 
 
-* Backend Service is secured via [Spring Security REST Plugin](https://grails.org/plugin/spring-security-rest)
 * Stateless, token-based authentication RESTful Authentication
+* Backend Service is secured via [Spring Security REST Plugin](https://grails.org/plugin/spring-security-rest)
+* Refer to diagram for workflow:
 
 ![REST Workflow](http://alvarosanchez.github.io/grails-spring-security-rest/1.5.1/docs/img/rest.png)
 

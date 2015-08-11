@@ -7,8 +7,10 @@ class UrlMappings {
             }
         }
 		
-		"/api/notes"(resources: 'note')
-
+		"/api/notes"(resources: 'note', includes:['index'])
+		"/api/users"(resources: 'user')
+		
+		
         "/"(view:"/index")
         "500"(view:'/error')
 	}

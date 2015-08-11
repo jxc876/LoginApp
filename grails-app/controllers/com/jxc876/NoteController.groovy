@@ -12,7 +12,6 @@ class NoteController {
 	@Secured(['ROLE_ADMIN'])
     def index() { 
 		
-		println "inside index()"
 		User user = springSecurityService.currentUser
 		println user
 		

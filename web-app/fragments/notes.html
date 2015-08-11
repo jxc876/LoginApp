@@ -1,9 +1,19 @@
-<h2>Notes</h2>
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<h2>Notes</h2>
 
-<ul data-ng-repeat="note in notes">
-	<li>{{note.text}}</li>
-</ul>
+		<table class="table table-bordered table-bordered white-table"> 
+		<thead>
+			<tr><th>Note Text</th></tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="note in notes"><td>{{note.text}}</td></tr>
+		</tbody>
+		</table>
+		
+		 <a id="logoutBtn" class="btn btn-primary" href="#/logout">Logout
+		 	<span class="glyphicon glyphicon-off"></span> 
+		 </a>
+	</div>
 
- <button id="logoutBtn" class="btn btn-primary" type="submit">Logout
- 	<span class="glyphicon glyphicon-off"></span> 
- </button>
+</div>

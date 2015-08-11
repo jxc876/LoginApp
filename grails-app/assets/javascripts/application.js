@@ -83,9 +83,10 @@
 	  });	  
 	  
 	  
-	  app.controller('LogoutCtrl', function($scope, $http) {
-		  
+	  app.controller('LogoutCtrl', function($scope, LoginService) {
+		  LoginService.clearToken();
 	  });
+	  
 	  
 	  app.controller('RegisterCtrl', function($scope, $http) {
 		  
@@ -99,6 +100,7 @@
 		  var service = {};
 		  var accessToken;
 		  var refreshToken;
+		  var TOKEN_KEY = "LoginAppToken";
 		  
 		  /*
 		   * Retrieves Access Token from REST API, the token can then be used on
@@ -113,6 +115,7 @@
 				  // 200 - OK
 				  console.log('Login Sucessful');
 				  accessToken = response.data.access_token;
+				  localStorage.setItem(TOKEN_KEY, accessToken); // LocalStorage
 				  refreshToken = response.data.refresh_token;
 				  deferred.resolve('Login Successful');
 				  
@@ -124,10 +127,10 @@
 				 
 			  });
 			  return deferred.promise;
-		  };
+		  };		  
 		  
 		  service.getToken = function(){
-			return accessToken;   
+			return localStorage.getItem(TOKEN_KEY);
 		  };
 		  
 		  service.getHeaders = function(){
@@ -135,6 +138,7 @@
 		  };
 		  
 		  service.clearToken = function(){
+			  localStorage.removeItem(TOKEN_KEY); // LocalStorage
 			  accessToken = null;
 			  refreshToken = null;
 		  };

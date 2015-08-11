@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta name="layout" content="main" />
-<title>Welcome</title>
+<title>Welcome</title>		
+		
 		<!-- JQuery -->
 		<asset:javascript src="lib/jquery/dist/jquery.js"/>
 
@@ -18,14 +19,14 @@
 		
 		<!-- Application -->
 		<asset:stylesheet src="application.css"/>
-		<asset:javascript src="application.js"/>		
+		<asset:javascript src="application.js"/>
+
 </head>
 <body>
 
-
     <div class="container" data-ng-app="loginApp" ng-controller="MainCtrl">
 		<div ng-view></div>
-    </div> <!-- /container -->
+    </div> 
 
 </body>
 </html>

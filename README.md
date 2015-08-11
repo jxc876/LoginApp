@@ -47,50 +47,47 @@ Then browse to `http://localhost:8080/LoginApp`
 
 * Obtain an access token by posting to /api/login
 
-```
-POST http://localhost:8080/LoginApp/api/login
 
-{
-    "username": "admin",
-    "password": "admin"
-}
-----
-200 OK
-{
-    "username": "admin",
-    "roles": [
-        "ROLE_ADMIN"
-    ],
-    "token_type": "Bearer",
-    "access_token": "eyJhbGciOiJIUzI1NiJ9...",
-    "expires_in": 3600,
-    "refresh_token": "eyJhbGciOiJIUzI1NiJ9..."
-}
+    POST http://localhost:8080/LoginApp/api/login
+    {
+        "username": "admin",
+        "password": "admin"
+    }
+    ----
+    200 OK
+    {
+        "username": "admin",
+        "roles": [
+            "ROLE_ADMIN"
+        ],
+        "token_type": "Bearer",
+        "access_token": "eyJhbGciOiJIUzI1NiJ9...",
+        "expires_in": 3600,
+        "refresh_token": "eyJhbGciOiJIUzI1NiJ9..."
+    }
 
-```
 
 ## REST Service
  
 The REST BackEnd is exposed at : `/api/notes`
 
-```
-GET http://localhost:8080/LoginApp/api/notes 
-Authorization : Bearer eyJhbGciOi...
-[
-  {
-    "class": "com.jxc876.Note",
-    "id": 1,
-    "date": "2015-08-10T00:58:04Z",
-    "text": "Hello this is my note"
-  },
-  {
-    "class": "com.jxc876.Note",
-    "id": 2,
-    "date": "2015-08-10T00:58:04Z",
-    "text": "This is another note"
-  }
-]
-```
+
+    GET http://localhost:8080/LoginApp/api/notes 
+    Authorization : Bearer eyJhbGciOi...
+    [
+      {
+        "class": "com.jxc876.Note",
+        "id": 1,
+        "date": "2015-08-10T00:58:04Z",
+        "text": "Hello this is my note"
+      },
+      {
+        "class": "com.jxc876.Note",
+        "id": 2,
+        "date": "2015-08-10T00:58:04Z",
+        "text": "This is another note"
+      }
+    ]
 
 
 ## Notes

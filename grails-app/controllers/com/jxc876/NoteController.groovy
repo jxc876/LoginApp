@@ -9,7 +9,7 @@ class NoteController {
 	SpringSecurityService springSecurityService
 
 	//@Secured(['permitAll'])
-	@Secured(['ROLE_ADMIN'])
+	@Secured(['ROLE_USER'])
     def index() { 
 		
 		User user = springSecurityService.currentUser

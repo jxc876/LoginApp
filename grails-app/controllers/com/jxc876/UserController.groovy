@@ -17,22 +17,36 @@ class UserController {
 	}
 	
 	
+	/**
+	 * Creates a new user and assigns it a default role of user.
+	 * @return
+	 */
 	@Secured(['permitAll'])
     def save() {
+		//TODO: Move logic to a Service
 		def jsonObj = request.JSON
+		def jsonReponse = [:]
 		
-		User user = new User(jsonObj)
-		user.enabled = false
-		
-		def map = [:]
-		
-		if (user.save()){
-			map.status = "sucess"
-		}else{
-			map.status = "failure"
+		def username = jsonObj.username
+		if (User.findByUsername(username)){
+			jsonReponse.status = "username is already taken"
+			render jsonReponse as JSON	
 		}
 		
-		render map as JSON
+		User user = new User(jsonObj)
+		user.enabled = true
+		Role role = Role.findByAuthority('ROLE_USER')	
+		UserRole uRole = new UserRole(user: user, role: role)
+		
+		boolean userSaved = user.save(flush: true, insert: true)
+		boolean uRoleSaved = uRole.save(flush: true, insert: true)
+				
+		if (userSaved && uRoleSaved){
+			jsonReponse.status = "success"
+		}else{
+			jsonReponse.status = "failure"
+		}
+		render jsonReponse as JSON
 	}
 	
 	private String randomString(){

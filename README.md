@@ -45,8 +45,7 @@ Then browse to `http://localhost:8080/LoginApp`
 ![REST Workflow](http://alvarosanchez.github.io/grails-spring-security-rest/1.5.1/docs/img/rest.png)
 
 
-* Obtain an access token by posting to /api/login
-
+Obtain an access token by posting to `/api/login`
 
     POST http://localhost:8080/LoginApp/api/login
     {

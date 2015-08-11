@@ -2,6 +2,11 @@
 
 Sample Angular application that allows Users to Register / Login / Log Out. 
 
+# Development Setup
+
+* Download a copy of [Eclipse GGTS](https://spring.io/tools/ggts)
+* Install a JDK
+
 # Running the Application
 
 Clone the Repo then run the application:
@@ -19,8 +24,8 @@ Then browse to `http://localhost:8080/LoginApp`
 
 ## Tech Stack
 
-* Angular / BootStrap (FrontEnd)
-* Grails (REST BackEnd)
+* FrontEnd: Angular / BootStrap / Bower 
+* REST Backend: Grails (Hibernate / Spring)
 
 
 ## Project Structure
@@ -38,6 +43,14 @@ I considered the following when making a decision:
 * Decouples FrontEnd & BackEnd
 * Better for real world applications
 * Requires CORS filter
+
+## File locations
+
+* Angular Application: `grails-app/assets/javascripts/application.js`
+* Application Entry Point: `grails-app/views/index.gsp`
+* Angular Templates : `web-app/fragments`
+* REST Controllers : `grails-app/controllers`
+
 
 ## Authentication Mechanism 
 

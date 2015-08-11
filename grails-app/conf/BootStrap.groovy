@@ -9,7 +9,7 @@ class BootStrap {
 		UserRole uRole = new UserRole(user: user, role: role).save()
 		
 		new Note(text:'This note was fetched from the REST API at /api/notes').save();
-		new Note(text:'Notes require authentication to view').save();
+		new Note(text:'These notes require authentication to view').save();
 		
     }
     def destroy = {

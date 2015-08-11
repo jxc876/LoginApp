@@ -28,8 +28,9 @@
                   templateUrl: '/LoginApp/fragments/notes.html',
                   controller: 'NotesCtrl'
                 }).
-            when('/created', {
-                templateUrl: '/LoginApp/fragments/created.html'
+            when('/created/:activationCode', {
+                templateUrl: '/LoginApp/fragments/created.html',
+                controller: 'ActivateCtrl'
               }).
               otherwise({
                 redirectTo: '/login'
@@ -70,21 +71,7 @@
 			  $scope.notes = response.data;
 		  });
 		  
-	  });
-
-	  /*
-	   * Watch for route changes, redirect to login page if user is not authenticated.
-	   */
-	  app.controller('MainCtrl', function($scope, $location, LoginService) {
-		  $scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){  
-			  var loggedIn = LoginService.getToken();
-			    if (!loggedIn && newValue != '/login' && newValue != '/register' && newValue != '/created'){  
-			    	console.log('User is not logged in, redirecting to Login Page');
-			        $location.path('/login');  
-			    }  
-			});
 	  });	  
-	  
 	  
 	  app.controller('LogoutCtrl', function($scope, LoginService) {
 		  LoginService.clearToken();
@@ -100,7 +87,8 @@
 			  var data = {username : $scope.username, password: $scope.password}
 
 			  $http.post('/LoginApp/api/users', data).then(function(response){
-					$location.path('/created');
+				    var activationCode = response.data.code
+					$location.path('/created/' + activationCode);
 				  }, function(response){
 					  $scope.message = "Username is not available, Try Another"
 					  //$scope.message = response.data.message;
@@ -108,6 +96,11 @@
 		  };
 		  
 	  });
+	  
+	  app.controller('ActivateCtrl', function($scope, $routeParams) {
+		  $scope.activationCode = $routeParams.activationCode;
+	  });
+	  
 	  
 	  /*
 	   * Login Service responsible for getting an Access Token.

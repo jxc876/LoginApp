@@ -23,7 +23,10 @@ Then browse to `http://localhost:8080/LoginApp`
 * Grails (REST BackEnd)
 
 
-## Single Application OR Separate FrontEnd / BackEnd
+## Project Structure
+
+I decided to create one application that contains both frontend & backend components.
+I considered the following when making a decision:
 
 ### Single Project
 
@@ -78,8 +81,10 @@ The activation link has the following format : `/LoginApp/api/activations/{{acti
 
 ## REST Service
  
-The REST BackEnd is exposed at : `/api/notes`
+The REST BackEnd is exposed at : `/api`
 
+I secured part of the API, mainly: `/api/notes`. 
+Viewing it requires sending an Authorization header with a valid access token.
 
     GET http://localhost:8080/LoginApp/api/notes 
     Authorization : Bearer eyJhbGciOi...
@@ -98,13 +103,8 @@ The REST BackEnd is exposed at : `/api/notes`
       }
     ]
 
-
-## Notes
-
-* `grails url-mappings-report`
-* http://mrhaki.blogspot.com/2013/11/grails-goodness-create-report-of-url.html 
-
-## TODO
+# TODO
 
 * Write Unit Tests
 * Move Angular Controllers & Services into own files
+* Add email to user domain classes & validate on registration 

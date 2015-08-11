@@ -31,27 +31,28 @@ class UserController {
 		if (User.findByUsername(username)){
 			jsonReponse.message = "username is already taken"
 			response.status = 400;
-			render jsonReponse as JSON	
+		}
+		else {
+			User user = new User(jsonObj)
+			user.enabled = false
+			user.activationCode = randomString()
+			Role role = Role.findByAuthority('ROLE_USER')
+			UserRole uRole = new UserRole(user: user, role: role)
+			
+			boolean userSaved = user.save(flush: true, insert: true)
+			boolean uRoleSaved = uRole.save(flush: true, insert: true)
+					
+			if (userSaved && uRoleSaved){
+				jsonReponse.message = "success"
+				jsonReponse.code = user.activationCode
+				jsonReponse.link = "/LoginApp/api/activations/${user.activationCode}"
+				println "activationLink --> /LoginApp/api/activations/${user.activationCode}"
+			}else{
+				response.status = 400
+				jsonReponse.message = "server error occured while creating account"
+			}
 		}
 		
-		User user = new User(jsonObj)
-		user.enabled = false 
-		user.activationCode = randomString()
-		Role role = Role.findByAuthority('ROLE_USER')	
-		UserRole uRole = new UserRole(user: user, role: role)
-		
-		boolean userSaved = user.save(flush: true, insert: true)
-		boolean uRoleSaved = uRole.save(flush: true, insert: true)
-				
-		if (userSaved && uRoleSaved){
-			jsonReponse.message = "success"
-			jsonReponse.code = user.activationCode
-			jsonReponse.link = "/api/activations/${user.activationCode}"
-			println "activationLink --> /api/activations/${user.activationCode}"
-		}else{
-			response.status = 400
-			jsonReponse.message = "server error occured while creating account"
-		}
 		render jsonReponse as JSON
 	}
 	

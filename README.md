@@ -95,3 +95,7 @@ The REST BackEnd is exposed at : `/api/notes`
 * `grails url-mappings-report`
 * http://mrhaki.blogspot.com/2013/11/grails-goodness-create-report-of-url.html 
 
+## TODO
+
+* Write Unit Tests
+* Move Angular Controllers & Services into own files

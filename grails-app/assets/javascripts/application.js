@@ -28,6 +28,9 @@
                   templateUrl: '/LoginApp/fragments/notes.html',
                   controller: 'NotesCtrl'
                 }).
+            when('/created', {
+                templateUrl: '/LoginApp/fragments/created.html'
+              }).
               otherwise({
                 redirectTo: '/login'
               });
@@ -53,7 +56,7 @@
 	  });
 	  
 	  /*
-	   * Controller responsible for retrieving Notes.
+	   * Controller responsible for retrieving Notes (requires authentication).
 	   */
 	  app.controller('NotesCtrl', function($scope, $http, LoginService) {
 		  $scope.greeting = 'Greeting from notes';
@@ -75,7 +78,7 @@
 	  app.controller('MainCtrl', function($scope, $location, LoginService) {
 		  $scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){  
 			  var loggedIn = LoginService.getToken();
-			    if (!loggedIn && newValue != '/login' && newValue != '/register'){  
+			    if (!loggedIn && newValue != '/login' && newValue != '/register' && newValue != '/created'){  
 			    	console.log('User is not logged in, redirecting to Login Page');
 			        $location.path('/login');  
 			    }  
@@ -88,7 +91,21 @@
 	  });
 	  
 	  
-	  app.controller('RegisterCtrl', function($scope, $http) {
+	  app.controller('RegisterCtrl', function($scope, $http, $location) {
+		  $scope.username = '';
+		  $scope.password = '';
+		  $scope.message = '';
+		  
+		  $scope.register = function(){
+			  var data = {username : $scope.username, password: $scope.password}
+
+			  $http.post('/LoginApp/api/users', data).then(function(response){
+					$location.path('/created');
+				  }, function(response){
+					  $scope.message = "Username is not available, Try Another"
+					  //$scope.message = response.data.message;
+				});
+		  };
 		  
 	  });
 	  
@@ -142,7 +159,6 @@
 			  accessToken = null;
 			  refreshToken = null;
 		  };
-		  
 		  
 		  return service;
 	  });

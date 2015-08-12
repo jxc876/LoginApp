@@ -120,4 +120,4 @@ Viewing it requires sending an Authorization header with a valid access token.
 
 * Write Unit Tests
 * Move Angular Controllers & Services into own files
-* Add email to user domain classes & validate on registration 
+* Use $asyncValidators to validate in real time

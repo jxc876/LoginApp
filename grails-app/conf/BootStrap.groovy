@@ -4,7 +4,7 @@ class BootStrap {
 
     def init = { servletContext ->
 		
-		User user = new User(username:"admin", password:"admin").save()
+		User user = new User(username:"admin", email: 'admin@gmail.com', password:"admin").save()
 		Role role = new Role(authority:"ROLE_USER").save()
 		UserRole uRole = new UserRole(user: user, role: role).save()
 		

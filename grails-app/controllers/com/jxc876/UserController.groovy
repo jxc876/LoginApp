@@ -28,8 +28,10 @@ class UserController {
 		def jsonReponse = [:]
 		
 		def username = jsonObj.username
-		if (User.findByUsername(username)){
-			jsonReponse.message = "username is already taken"
+		def email = jsonObj.email
+		
+		if (User.findByUsername(username) || User.findByEmail(email)){
+			jsonReponse.message = "Username/Email not available."
 			response.status = 400;
 		}
 		else {

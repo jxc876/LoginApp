@@ -77,7 +77,7 @@
 		  LoginService.clearToken();
 	  });
 	  
-	  
+	  //TODO: Use $asyncValidators to validate in real time
 	  app.controller('RegisterCtrl', function($scope, $http, $location) {
 		  $scope.username = '';
 		  $scope.email = '';
@@ -91,13 +91,17 @@
 				  return;
 			  }
 			  
-			  var data = {username : $scope.username, password: $scope.password}
+			  var data = {
+					  username : $scope.username, 
+					  password: $scope.password,
+					  email: $scope.email
+			  	};
 
 			  $http.post('/LoginApp/api/users', data).then(function(response){
 				    var activationCode = response.data.code
 					$location.path('/created/' + activationCode);
 				  }, function(response){
-					  $scope.message = "Username is not available, Try Another"
+					  $scope.message = "Username/Email is not available, Try Another"
 					  //$scope.message = response.data.message;
 				});
 		  };
